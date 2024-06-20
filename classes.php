@@ -5,15 +5,14 @@ abstract class users
     public $name;
     public $phone;
     protected $password;
-
     public $image;
     public $email;
-
     public $created_at;
 
 
-    function __construct($id,$name,$email,$password,$phone,$image,$created_at){
-        $this->id =$id;
+    function __construct($id, $name, $email, $password, $phone, $image, $created_at)
+    {
+        $this->id = $id;
         $this->name = $name;
         $this->email = $email;
         $this->password = $password;
@@ -31,13 +30,13 @@ abstract class users
         require_once('config.php');
         $con = mysqli_connect(DB_HOST, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME);
         $rslt = mysqli_query($con, $qry);
-        if ($arr = mysqli_fetch_assoc($rslt)){
-            switch($arr["role"]){
+        if ($arr = mysqli_fetch_assoc($rslt)) {
+            switch ($arr["role"]) {
                 case 'subscriber':
-                    $user = new Subscriber($arr["id"],$arr["name"],$arr["email"],$arr["phone"],$arr["password"],$arr["image"],$arr["created_at"]);
+                    $user = new Subscriber($arr["id"], $arr["name"], $arr["email"], $arr["phone"], $arr["password"], $arr["image"], $arr["created_at"]);
                     break;
                 case 'admin':
-                    $user = new Admin ($arr["id"],$arr["name"],$arr["email"],$arr["phone"],$arr["password"],$arr["image"],$arr["created_at"]);
+                    $user = new Admin($arr["id"], $arr["name"], $arr["email"], $arr["phone"], $arr["password"], $arr["image"], $arr["created_at"]);
                     break;
             }
         }
@@ -46,7 +45,7 @@ abstract class users
     }
 
 
-    public static function store_posts($title , $imageName ,$user_id)
+    public static function store_posts($title, $imageName, $user_id)
     {
         $qry = "INSERT INTO posts (title ,image ,user_id) 
         VALUES('$title' , '$imageName','$user_id')";
@@ -58,43 +57,74 @@ abstract class users
     }
 
 
-    public static function store_comment($comment ,$user_id)
+    public static function store_comment($comment, $user_id, $post_id)
     {
-        $qry = "INSERT INTO comments (comment ,user_id) 
-        VALUES('$comment' , '$user_id')";
+        $qry = "INSERT INTO comments (comment , user_id , post_id) 
+        VALUES('$comment' , '$user_id','$post_id')";
         require_once('config.php');
         $con = mysqli_connect(DB_HOST, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME);
         $rslt = mysqli_query($con, $qry);
         mysqli_close($con);
         return $rslt;
     }
+    public static function store_like($like, $user_id, $post_id)
+    {
+        $qry = "INSERT INTO likes (love , user_id , post_id) 
+        VALUES('$like' , '$user_id','$post_id')";
+        require_once('config.php');
+        $con = mysqli_connect(DB_HOST, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME);
+        $rslt = mysqli_query($con, $qry);
+        mysqli_close($con);
+        // var_dump($rslt);
+        return $rslt;
+    }
+    public static function unlike($user_id, $post_id)
+    {
+        $qry = "Delete FROM likes WHERE user_id = $user_id AND post_id = $post_id";
+        require_once('config.php');
+        $con = mysqli_connect(DB_HOST, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME);
+        $rslt = mysqli_query($con, $qry);
+        mysqli_close($con);
+        // var_dump($rslt);
+        return $rslt;
+    }
 
 
     public static function myposts($user_id)
     {
-        $qry = "SELECT * FROM posts WHERE  user_id =$user_id ORDER BY CREATED_AT DESC" ;
+        $qry = "SELECT * FROM posts WHERE  user_id =$user_id ORDER BY CREATED_AT DESC";
         require_once('config.php');
         $con = mysqli_connect(DB_HOST, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME);
         $rslt = mysqli_query($con, $qry);
-        $data=mysqli_fetch_all($rslt, MYSQLI_ASSOC);
+        $data = mysqli_fetch_all($rslt, MYSQLI_ASSOC);
+        mysqli_close($con);
+        return $data;
+    }
+    public static function posts()
+    {
+        $qry = "SELECT * FROM posts ORDER BY CREATED_AT DESC";
+        require_once('config.php');
+        $con = mysqli_connect(DB_HOST, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME);
+        $rslt = mysqli_query($con, $qry);
+        $data = mysqli_fetch_all($rslt, MYSQLI_ASSOC);
         mysqli_close($con);
         return $data;
     }
 
     public static function mycomment($post_id)
     {
-        $qry = "SELECT * FROM comments JOIN users on comment.user_id = user.id  WHERE  post_id =$post_id ORDER BY comments.CREATED_AT DESC" ;
+        $qry = "SELECT * FROM comments  WHERE  post_id =$post_id ";
         require_once('config.php');
         $con = mysqli_connect(DB_HOST, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME);
         $rslt = mysqli_query($con, $qry);
-        $data=mysqli_fetch_all($rslt, MYSQLI_ASSOC);
+        $data = mysqli_fetch_all($rslt, MYSQLI_ASSOC);
         mysqli_close($con);
         return $data;
     }
 
-    public static function update_user_image($imagepath,$user_id)
+    public static function update_user_image($imagepath, $user_id)
     {
-        $qry = "UPDATE users SET image ='$imagepath' WHERE id = $user_id" ;
+        $qry = "UPDATE users SET image ='$imagepath' WHERE id = $user_id";
         require_once('config.php');
         $con = mysqli_connect(DB_HOST, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME);
         $rslt = mysqli_query($con, $qry);
@@ -102,7 +132,40 @@ abstract class users
         return  $rslt;
     }
 
+    public static function getUser($user_id)
+    {
+        $qry = "SELECT * FROM users WHERE id = $user_id";
+        require_once('config.php');
+        $con = mysqli_connect(DB_HOST, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME);
+        $rslt = mysqli_query($con, $qry);
+        $data = mysqli_fetch_all($rslt, MYSQLI_ASSOC);
+        mysqli_close($con);
+        // var_dump($data);
+        return $data;
     }
+    public static function mylikes($post_id)
+    {
+        $qry = "SELECT * FROM likes WHERE post_id = $post_id ORDER BY CREATED_AT DESC";
+        require_once('config.php');
+        $con = mysqli_connect(DB_HOST, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME);
+        $rslt = mysqli_query($con, $qry);
+        $data = mysqli_fetch_all($rslt, MYSQLI_ASSOC);
+        mysqli_close($con);
+        // var_dump($data);
+        return $data;
+    }
+    public static function mylike($post_id, $user_id)
+    {
+        $qry = "SELECT * FROM likes WHERE post_id = $post_id AND user_id = $user_id";
+        require_once('config.php');
+        $con = mysqli_connect(DB_HOST, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME);
+        $rslt = mysqli_query($con, $qry);
+        $data = mysqli_fetch_all($rslt, MYSQLI_ASSOC);
+        mysqli_close($con);
+        // var_dump($data);
+        return $data;
+    }
+}
 
 
 class Subscriber extends users
@@ -112,7 +175,6 @@ class Subscriber extends users
     {
         $qry = "INSERT INTO users (name,email,phone,password) 
         VALUES('$name','$email','$phone','$password')";
-
         require_once('config.php');
         $con = mysqli_connect(DB_HOST, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME);
         $rslt = mysqli_query($con, $qry);
@@ -125,35 +187,35 @@ class Admin extends users
     public $role = "admin";
 
 
-    function get_all_user(){
-        $qry = "SELECT * FROM users WHERE role = 'subscriber' ORDER BY CREATED_AT" ;
+    function get_all_user()
+    {
+        $qry = "SELECT * FROM users WHERE role = 'subscriber' ORDER BY CREATED_AT";
         require_once('config.php');
         $con = mysqli_connect(DB_HOST, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME);
         $rslt = mysqli_query($con, $qry);
-        $data=mysqli_fetch_all($rslt, MYSQLI_ASSOC);
+        $data = mysqli_fetch_all($rslt, MYSQLI_ASSOC);
         mysqli_close($con);
         return $data;
     }
 
-    function get_all_post(){
-        $qry = "SELECT * FROM posts ORDER BY CREATED_AT" ;
+    function get_all_post()
+    {
+        $qry = "SELECT * FROM posts ORDER BY CREATED_AT";
         require_once('config.php');
         $con = mysqli_connect(DB_HOST, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME);
         $rslt = mysqli_query($con, $qry);
-        $data=mysqli_fetch_all($rslt, MYSQLI_ASSOC);
+        $data = mysqli_fetch_all($rslt, MYSQLI_ASSOC);
         mysqli_close($con);
         return $data;
     }
 
-    function delete($user_id){
-        $qry = "DELETE FROM users WHERE id =$user_id" ;
+    function delete($user_id)
+    {
+        $qry = "DELETE FROM users WHERE id =$user_id";
         require_once('config.php');
         $con = mysqli_connect(DB_HOST, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME);
         $rslt = mysqli_query($con, $qry);
         mysqli_close($con);
         return $rslt;
     }
-    
-    
-
 }

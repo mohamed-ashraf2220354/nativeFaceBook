@@ -43,7 +43,8 @@ if (empty($user = unserialize($_SESSION["user"]))) {
     </div>
 
     <div class="nav-right">
-      <span class="profile"> </span>
+      <span > <?php if (!empty($user->image)) echo "<img style='border-radius: 50%;' src='$user->image' alt=' avatar' width='25' height='25' />";
+      else echo "<img src='./image/User.png' alt='profile pic' />"; ?> </span>
 
       <a href="#">
         <i class="fa fa-bell"></i>

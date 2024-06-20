@@ -22,7 +22,7 @@ $myposts = $user->myposts($user->id);
   </div>
 
   <div class="buttons">
-    <button class="button">your story</button>
+    <a href="posts.php" class="button">Add Post</a>
     <button class="button">Message</button>
   </div>
 </div>

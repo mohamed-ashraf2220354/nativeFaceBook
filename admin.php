@@ -27,8 +27,9 @@ $All_user = $user->get_all_user();
 			<i class='bx bxs-bell'></i>
 			<span class="num">8</span>
 		</a>
-		<a href="#" class="profile">
-			<img src="./image/IMG_8739.JPG">
+		<a href="profile.php" class="profile">
+			<?php if (!empty($user->image)) echo "<img src='$user->image' alt='profile pic' />";
+			else echo "<img src='./image/User.png' alt='profile pic' />"; ?>
 		</a>
 	</nav>
 	<!-- NAVBAR -->
@@ -106,7 +107,8 @@ $All_user = $user->get_all_user();
 						?>
 							<tr>
 								<td>
-									<img src="./image/User.jpg">
+									<?php if (!empty($user["image"])) echo "<img src='$user[image]' alt='profile pic' />";
+									else echo "<img src='./image/User.png' alt='profile pic' />"; ?>
 									<p> <?= $user["name"] ?></p>
 								</td>
 								<td><?= $user["email"] ?></td>
@@ -119,8 +121,6 @@ $All_user = $user->get_all_user();
 											REMOVE ACCOUNT
 										</button>
 									</form>
-
-
 								</td>
 							</tr>
 						<?php

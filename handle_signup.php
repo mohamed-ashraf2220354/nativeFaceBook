@@ -24,7 +24,7 @@ if (empty($errors)) {
     require_once('classes.php');
     try {
         $rslt = Subscriber::signup($name,$email,$phone,md5($password));
-        header("location:login.php?msg=sr");
+        header("location:index.php?msg=sr");
     } catch (\Throwable $th) {
         header("location:signup.php?msg=erorr");
     }

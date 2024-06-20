@@ -44,7 +44,7 @@ session_start();
           <div class="link">
             <button type="submit" class="Signup">Signup</button>
           </div>
-          <p class="p">already have an account?<a href="login.php">login now</a></p>
+          <p class="p">already have an account?<a href="index.php">login now</a></p>
     </form>
   </div>
 </div>
