@@ -68,12 +68,12 @@ $posts = $user->posts();
         <p class="name">Inbox</p>
       </li>
       <li>
-        <i class="logout">
-          <img src="./image/logout.png" alt="" />
-        </i>
         <a href="handle_logout.php" style="  text-decoration: none;
-  color: red;
-  padding: 10px;">Log Out</a>
+          color: red; padding: 10px;">
+          <i class="logout">
+            <img src="./image/logout.png" alt="" />
+          </i>
+          Log Out</a>
       </li>
     </ul>
     <div class="footer-links">
@@ -191,16 +191,16 @@ $posts = $user->posts();
                   </svg>
                   <span>Like</span>
                 </a>
-                <?php
+              <?php
               } else {
-                ?>
-                  <a role="button" href="handle_like.php ?post_id=<?= $post["id"] ?> & like=yes" class="btn btn-primary btn-lg btn-floating">
-                    <i class="fa-regular fa-heart"></i>
-                    <span>Like</span>
-                  </a>
-                <?php
+              ?>
+                <a role="button" href="handle_like.php ?post_id=<?= $post["id"] ?> & like=yes" class="btn btn-primary btn-lg btn-floating">
+                  <i class="fa-regular fa-heart"></i>
+                  <span>Like</span>
+                </a>
+              <?php
               }
-                ?>
+              ?>
             </div>
             <div class="action">
               <i class="far fa-comments"></i>
@@ -208,11 +208,11 @@ $posts = $user->posts();
             </div>
             <div class="action">
               <a role="button" href="like.php ?post_id=<?= $post["id"] ?>" class="btn btn-primary btn-lg btn-floating">
-              <i class="bi bi-clipboard2-pulse-fill"></i>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-pulse-fill" viewBox="0 0 16 16">
-                <path d="M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5" />
-                <path d="M4.085 1H3.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1h-.585q.084.236.085.5V2a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 4 2v-.5q.001-.264.085-.5M9.98 5.356 11.372 10h.128a.5.5 0 0 1 0 1H11a.5.5 0 0 1-.479-.356l-.94-3.135-1.092 5.096a.5.5 0 0 1-.968.039L6.383 8.85l-.936 1.873A.5.5 0 0 1 5 11h-.5a.5.5 0 0 1 0-1h.191l1.362-2.724a.5.5 0 0 1 .926.08l.94 3.135 1.092-5.096a.5.5 0 0 1 .968-.039Z" />
-              </svg>
+                <i class="bi bi-clipboard2-pulse-fill"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-pulse-fill" viewBox="0 0 16 16">
+                  <path d="M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5" />
+                  <path d="M4.085 1H3.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1h-.585q.084.236.085.5V2a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 4 2v-.5q.001-.264.085-.5M9.98 5.356 11.372 10h.128a.5.5 0 0 1 0 1H11a.5.5 0 0 1-.479-.356l-.94-3.135-1.092 5.096a.5.5 0 0 1-.968.039L6.383 8.85l-.936 1.873A.5.5 0 0 1 5 11h-.5a.5.5 0 0 1 0-1h.191l1.362-2.724a.5.5 0 0 1 .926.08l.94 3.135 1.092-5.096a.5.5 0 0 1 .968-.039Z" />
+                </svg>
               </a>
               <span>Likes</span>
             </div>
