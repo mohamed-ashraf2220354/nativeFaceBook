@@ -165,7 +165,13 @@ $posts = $user->posts();
             </div>
             <div class="post-info">
               <p class="name"> <?= $user1[0]["name"] ?></p>
-              <span class="time"><?= $post["created_at"] ?></span>
+              <span class="time">
+                <?php
+                $time = $post["created_at"];
+                $date = date("F j, Y, g:i a", strtotime($time));
+                echo $date;
+                ?>
+              </span>
             </div>
             <i class="fas fa-ellipsis-h"></i>
           </div>
