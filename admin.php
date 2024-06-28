@@ -55,18 +55,7 @@ $All_user = $user->get_all_user();
 			<li>
 				<i class='bx bxs-calendar-check'></i>
 				<span class="text">
-					<h3>
-						<?php
-						$qry = "SELECT * FROM users WHERE role ='subscriber'";
-						require_once('config.php');
-						$con = mysqli_connect(DB_HOST, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME);
-						$result = mysqli_query($con, $qry);
-						if ($total = mysqli_num_rows($result)) {
-							echo $total;
-						}else{
-							echo "not date ";
-						}
-						?></h3>
+					<h3> <?= count($All_user) ?></h3>
 					<p>Users</p>
 				</span>
 			</li>
@@ -112,7 +101,11 @@ $All_user = $user->get_all_user();
 									<p> <?= $user["name"] ?></p>
 								</td>
 								<td><?= $user["email"] ?></td>
-								<td><?= $user["created_at"] ?></td>
+								<td><?php
+									$time = $user["created_at"];
+									$date = date("F j, Y, g:i a", strtotime($time));
+									echo $date;
+									?></td>
 								<td><?= $user["role"] ?></td>
 								<td>
 									<form action="delaccount.php" method="post">

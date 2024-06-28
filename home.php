@@ -7,19 +7,23 @@ $posts = $user->posts();
   <div class="left-panel">
     <ul>
       <li>
-        <?php
-        if (!empty($user->image)) {
-        ?>
-          <img src="<?= $user->image ?>" alt="avatar" width="50" height="50" style="border-radius: 50%;" />
-        <?php
-        } else {
-        ?>
-          <img src="./image/User.png" alt="profile pic" />
-        <?php
-        }
-        ?>
-        <i></i>
-        <p class="name"><a style="text-decoration: none ;color: #333;" href="profile.php"><?= $user->name ?></a> </p>
+        <a style="text-decoration: none ;color: #333;" href="profile.php">
+          <?php
+          if (!empty($user->image)) {
+          ?>
+            <img src="<?= $user->image ?>" alt="avatar" width="50" height="50" style="border-radius: 50%;" />
+          <?php
+          } else {
+          ?>
+            <img src="./image/User.png" alt="profile pic" />
+          <?php
+          }
+          ?>
+          <i></i>
+          <p class="name">
+            <?= $user->name ?>
+        </a>
+        </p>
       </li>
       <li>
         <i class="fa fa-user-friends"></i>
@@ -209,8 +213,10 @@ $posts = $user->posts();
               ?>
             </div>
             <div class="action">
-              <i class="far fa-comments"></i>
-              <a href="comments.php ?post_id=<?= $post["id"] ?>"><span>comments</span></a>
+              <a href="comments.php ?post_id=<?= $post["id"] ?>">
+                <i class="far fa-comments"></i>
+                <span>comments</span>
+              </a>
             </div>
             <div class="action">
               <a role="button" href="like.php ?post_id=<?= $post["id"] ?>" class="btn btn-primary btn-lg btn-floating">
@@ -219,8 +225,8 @@ $posts = $user->posts();
                   <path d="M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5" />
                   <path d="M4.085 1H3.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1h-.585q.084.236.085.5V2a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 4 2v-.5q.001-.264.085-.5M9.98 5.356 11.372 10h.128a.5.5 0 0 1 0 1H11a.5.5 0 0 1-.479-.356l-.94-3.135-1.092 5.096a.5.5 0 0 1-.968.039L6.383 8.85l-.936 1.873A.5.5 0 0 1 5 11h-.5a.5.5 0 0 1 0-1h.191l1.362-2.724a.5.5 0 0 1 .926.08l.94 3.135 1.092-5.096a.5.5 0 0 1 .968-.039Z" />
                 </svg>
+                <span>Likes</span>
               </a>
-              <span>Likes</span>
             </div>
           </div>
         </div>

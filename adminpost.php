@@ -55,17 +55,7 @@ $All_posts = $user->get_all_post();
 			<li>
 				<i class='bx bxs-calendar-check'></i>
 				<span class="text">
-					<h3> <?php
-							$qry = "SELECT * FROM posts";
-							require_once('config.php');
-							$con = mysqli_connect(DB_HOST, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME);
-							$result = mysqli_query($con, $qry);
-							if ($total = mysqli_num_rows($result)) {
-								echo $total;
-							} else {
-								echo "not date ";
-							}
-							?></h3>
+					<h3> <?= count($All_posts) ?></h3>
 					<p>Posts</p>
 				</span>
 			</li>
@@ -106,7 +96,11 @@ $All_posts = $user->get_all_post();
 							<tr>
 
 								<td><?= $post["title"] ?></td>
-								<td><?= $post["created_at"] ?></td>
+								<td><?php
+									$time = $post["created_at"];
+									$date = date("F j, Y, g:i a", strtotime($time));
+									echo $date;
+									?></td>
 								<td><?= $post["image"] ?></td>
 								<td>
 									<form action="home.php">
@@ -130,7 +124,6 @@ $All_posts = $user->get_all_post();
 	<!-- MAIN -->
 </section>
 <!-- CONTENT -->
-
 
 <script src="script.js"></script>
 </body>

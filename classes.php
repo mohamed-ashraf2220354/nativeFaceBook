@@ -67,10 +67,10 @@ abstract class users
         mysqli_close($con);
         return $rslt;
     }
-    public static function store_like($like, $user_id, $post_id)
+    public static function store_like($user_id, $post_id)
     {
-        $qry = "INSERT INTO likes (love , user_id , post_id) 
-        VALUES('$like' , '$user_id','$post_id')";
+        $qry = "INSERT INTO likes (user_id , post_id) 
+        VALUES('$user_id','$post_id')";
         require_once('config.php');
         $con = mysqli_connect(DB_HOST, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME);
         $rslt = mysqli_query($con, $qry);
